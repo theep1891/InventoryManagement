@@ -1,0 +1,278 @@
+﻿@model BaTecInventory.Models.Product
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link href="/Content/StyleSheet.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+@*<link href ="~/Content/Ajax.js" rel="stylesheet" type="text/javascript"/>*@
+<br />
+<br />
+
+
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Product</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div input class="col-md-10">
+                @*@Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", id = "searchInputUserName" } })*@
+                @Html.DropDownListFor(model => model.UserName, new SelectList(ViewBag.userlist, ""), "-Select User Name-", new { @class = "form-control " })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+            </div>
+            @*<script>
+                    $("#searchInputUserName").autocomplete({
+                        source: function (request, response) {
+                            $.ajax({
+                                url: '@Url.Action("GetSearchUser", "User")',
+                                dataType: "json",
+                                data: { searchusername: $("#searchInputUserName").val() },
+                                success: function (data) {
+                                    response($.map(data, function (item) {
+                                        return { label: item.GetName, value: item.GetName };
+                                    }));
+                                },
+                                error: function (xhr, status, error) {
+                                    alert("Error");
+                                }
+                            });
+                        }
+                    });
+                </script>*@
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Producer, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Producer, new { htmlAttributes = new { @class = "form-control", id = "searchInputProducerName" } })
+                @Html.ValidationMessageFor(model => model.Producer, "", new { @class = "text-danger" })
+            </div>
+            <script>
+                $("#searchInputProducerName").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: '@Url.Action("GetSearchProducer", "Inventory")',
+                            dataType: "json",
+                            data: { searchproducer: $("#searchInputProducerName").val() },
+                            success: function (data) {
+                                response($.map(data, function (item) {
+                                    return { label: item.GetName, value: item.GetName };
+                                }));
+                            },
+                            error: function (xhr, status, error) {
+                                alert("Error");
+                            }
+                        });
+                    }
+                });
+            </script>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Model, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Model, new { htmlAttributes = new { @class = "form-control", id = "searchInputModelName" } })
+                @Html.ValidationMessageFor(model => model.Model, "", new { @class = "text-danger" })
+            </div>
+            <script>
+                $("#searchInputModelName").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: '@Url.Action("GetSearchModel", "Inventory")',
+                            dataType: "json",
+                            data: { searchmodel: $("#searchInputModelName").val() },
+                            success: function (data) {
+                                response($.map(data, function (item) {
+                                    return { label: item.GetName, value: item.GetName };
+                                }));
+                            },
+                            error: function (xhr, status, error) {
+                                alert("Error");
+                            }
+                        });
+                    }
+                });
+            </script>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Supplier, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div input class="col-md-10">
+                @Html.EditorFor(model => model.Supplier, new { htmlAttributes = new { @class = "form-control", id = "searchInputSupplierName" } })
+                @Html.ValidationMessageFor(model => model.Supplier, "", new { @class = "text-danger" })
+            </div>
+            <script>
+                $("#searchInputSupplierName").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: '@Url.Action("GetSearchSupplier", "Inventory")',
+                            dataType: "json",
+                            data: { searchsupplier: $("#searchInputSupplierName").val() },
+                            success: function (data) {
+                                response($.map(data, function (item) {
+                                    return { label: item.GetName, value: item.GetName };
+                                }));
+                            },
+                            error: function (xhr, status, error) {
+                                alert("Error");
+                            }
+                        });
+                    }
+                });
+            </script>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Category, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Category, new { htmlAttributes = new { @class = "form-control", id = "searchInputCategoryName" } })
+                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "text-danger" })
+            </div>
+            <script>
+                $("#searchInputCategoryName").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: '@Url.Action("GetSearchCategory", "Inventory")',
+                            dataType: "json",
+                            data: { searchcategory: $("#searchInputCategoryName").val() },
+                            success: function (data) {
+                                response($.map(data, function (item) {
+                                    return { label: item.GetName, value: item.GetName };
+                                }));
+                            },
+                            error: function (xhr, status, error) {
+                                alert("Error");
+                            }
+                        });
+                    }
+                });
+            </script>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SubCategory, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SubCategory, new { htmlAttributes = new { @class = "form-control", id = "searchInputSubCategoryName" } })
+                @Html.ValidationMessageFor(model => model.SubCategory, "", new { @class = "text-danger" })
+            </div>
+            <script>
+                $("#searchInputSubCategoryName").autocomplete({
+                    source: function (request, response) {
+                        $.ajax({
+                            url: '@Url.Action("GetSearchSubCategory", "Inventory")',
+                            dataType: "json",
+                            data: { searchsubcategory: $("#searchInputSubCategoryName").val() },
+                            success: function (data) {
+                                response($.map(data, function (item) {
+                                    return { label: item.GetName, value: item.GetName };
+                                }));
+                            },
+                            error: function (xhr, status, error) {
+                                alert("Error");
+                            }
+                        });
+                    }
+                });
+            </script>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SerialNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SerialNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SerialNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ReceiptNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ReceiptNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ReceiptNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PurchaseDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PurchaseDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PurchaseDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DestructionDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DestructionDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DestructionDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comments, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" spellcheck="true">
+                @Html.EditorFor(model => model.Comments, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Comments, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.History, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" spellcheck="true" >
+                @Html.EditorFor(model => model.History, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.History, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="btnSubmit"value="Create"  class="btn btn-danger" />
+                
+            </div>
+            <div id="myAlert" class="alert alert-danger collapse">
+                <a id="linkClose" href="#" class="close">&times;</a>
+                <strong>Sucess!</strong> New Product Created
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+
+                    $('#btnSubmit').click(function () {
+                        $('#myAlert').show('fade');
+
+                        setTimeout(function () {
+                            $('#myAlert').hide('fade');
+                        }, 10000);
+
+                    });
+
+                    $('#linkClose').click(function () {
+                        $('#myAlert').hide('fade');
+                    });
+
+                });
+            </script>
+        </div>
+    </div>
+}
+
+<div>
+    <button type="button" class="modal-content" >@Html.ActionLink("Back to List", "Index")</button>
+</div>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+

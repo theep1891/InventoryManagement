@@ -1,0 +1,166 @@
+﻿
+@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<BaTecInventory.Models.Product>
+
+<br />
+<br />
+
+
+<link href="/Content/StyleSheet.css" rel="stylesheet" />
+
+<h2 class="glyphicon-font"> Search by Product </h2>
+@using (Html.BeginForm("SearchProduct", "Inventory", FormMethod.Get))
+{
+    <div id="txtBox">
+        @Html.Label("Search Products ")
+        <input type="text" name="searchPar" />
+    </div>
+
+    <div id="radioList">
+        @Html.RadioButton("searchBy", "0")
+        @Html.Label("Product Id")
+        @Html.RadioButton("searchBy", "1", true)
+        @Html.Label("User Name")
+        <button type="submit" class="btn btn-info">
+            <span class="glyphicon glyphicon-search"> </span> Search
+            @*<input type="submit" value="Search" id="btnSubmit" />*@
+        </button>
+
+
+
+    </div>
+    @*<div id="btnSearch">
+
+
+        </div>*@
+}
+
+
+
+<p>
+    <button type="button" class="modal-content" > @Html.ActionLink(" Back to All Product List", "Index")</button>
+
+</p>
+
+<table class="table" border="2">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Producer)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Model)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Supplier)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().SubCategory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().SerialNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ReceiptNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().PurchaseDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().DestructionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Comments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().History)
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="13">
+                <h4>No records match search criteria</h4>
+            </td>
+        </tr>
+    }
+    else
+    {
+
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(q => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Producer)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Model)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Supplier)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SubCategory)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SerialNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReceiptNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchaseDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DestructionDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Comments)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.History)
+                </td>
+                <td>
+                    <button type="button" class="modal-content">@Html.ActionLink("Edit", "Edit", new { id = item.ProductId })|</button>
+                    <button type="button" class="modal-content"> @Html.ActionLink("Details", "Details", new { id = item.ProductId })|</button>
+                    <button type="button" class="modal-content">@Html.ActionLink("Delete", "Delete", new { id = item.ProductId })</button>
+</td>
+            </tr>
+        }
+    }
+
+</table>
+<div>
+
+    @Html.PagedListPager(Model, page => Url.Action("SearchProduct", new { page, searchPar = Request.QueryString["searchPar"], searchBy = Request.QueryString["searchBy"] }),
+        new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true })
+</div>
+<div>
+    
+    @using (Html.BeginForm("SearchExportToExcel", "Inventory", FormMethod.Get))
+    {
+        <input type="submit" value="ExportToExcel" id="button" class="btn-success" />
+    }
+
+    @*@{
+        @Html.ActionLink("Export to Excel","SearchExportToExcel", "Inventory", FormMethod.Get, new {products = IPagedList  } )
+
+    }*@
+    
+</div>

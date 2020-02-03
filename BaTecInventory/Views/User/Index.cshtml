@@ -1,0 +1,50 @@
+﻿@model IEnumerable<BaTecInventory.Models.User>
+
+<link href="/Content/StyleSheet.css" rel="stylesheet" />
+<br />
+<br />
+
+<p>
+    <button type="button" class="modal-content">@Html.ActionLink("Create New", "Create")</button>
+</p>
+<table class="table" , border="2">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserPhoneNumber)
+        </th>
+        <th> Action </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserPhoneNumber)
+            </td>
+            <td>
+                <button type="button" class="modal-content">@Html.ActionLink("Edit", "Edit", new { id = item.UserId }) </button> |
+                <button type="button" class="modal-content">@Html.ActionLink("Details", "Details", new { id = item.UserId })</button> |
+                <button type="button" class="modal-content">@Html.ActionLink("Delete", "Delete", new { id = item.UserId }) </button>
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,46 @@
+﻿@model BaTecInventory.Models.User
+<link href="/Content/StyleSheet.css" rel="stylesheet" />
+<br />
+<br />
+<div>
+    <h4>User Details</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserEmail)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserEmail)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserPhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserPhoneNumber)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <button type="button" class="modal-content"> @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) </button> |
+    <button type="button" class="modal-content"> @Html.ActionLink("Back to List", "Index")</button>
+</p>

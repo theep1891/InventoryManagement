@@ -1,0 +1,147 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<BaTecInventory.Models.Product>
+
+@*<link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />*@
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<link href="/Content/StyleSheet.css" rel="stylesheet" />
+<br />
+<br />
+
+<div class="col-sm-6">
+    <h4><button type="button" class="modal-content">@Html.ActionLink("Click Here to Create New Product", "CreateProduct")</button></h4>
+</div>
+
+<table border="2" class="table-condensed">
+    <tr>
+        <th>
+            @Html.ActionLink("UserName", "Index", new { sortBy = ViewBag.SortNameParameter, searchPar = Request.QueryString["searchPar"], search = Request.QueryString["search"] })
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.First().UserName)
+            </th>*@
+        <th>
+            @Html.ActionLink("Producer", "Index", new { sortBy = ViewBag.SortProducerParameter, searchPar = Request.QueryString["searchPar"], search = Request.QueryString["search"] })
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.First().Producer)
+            </th>*@
+        <th>
+            @Html.ActionLink("Model", "Index", new { sortBy = ViewBag.SortModelParameter, searchPar = Request.QueryString["searchPar"], search = Request.QueryString["search"] })
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.First().Model)
+            </th>*@
+        <th>
+            @Html.ActionLink("Supplier", "Index", new { sortBy = ViewBag.SortSupplierParameter, searchPar = Request.QueryString["searchPar"], search = Request.QueryString["search"] })
+        </th>
+
+        @*<th>
+                @Html.DisplayNameFor(model => model.First().Supplier)
+            </th>*@
+        <th>
+            @Html.ActionLink("Category", "Index", new { sortBy = ViewBag.SortCategoryParameter, searchPar = Request.QueryString["searchPar"], search = Request.QueryString["search"] })
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.First().Category)
+            </th>*@
+        <th>
+            @Html.ActionLink("SubCategory", "Index", new { sortBy = ViewBag.SortSubCategoryParameter, searchPar = Request.QueryString["searchPar"], search = Request.QueryString["search"] })
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.First().SubCategory)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.First().SerialNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ReceiptNumber)
+        </th>
+        <th>
+            @Html.ActionLink("PurchaseDate", "Index", new { sortBy = ViewBag.SortPurchaseDateParameter, searchPar = Request.QueryString["searchPar"], search = Request.QueryString["search"] })
+        </th>
+        @*<th>
+                @Html.DisplayNameFor(model => model.First().PurchaseDate)
+            </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.First().DestructionDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Comments)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().History)
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Producer)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Supplier)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SubCategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SerialNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReceiptNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DestructionDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Comments)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.History)
+            </td>
+            <td>
+                <button type="button" class="modal-content">@Html.ActionLink("Edit", "Edit", new { id = item.ProductId })|</button>
+                <button type="button" class="modal-content">@Html.ActionLink("Details", "Details", new { id = item.ProductId })|</button>
+                <button type="button" class="modal-content">@Html.ActionLink("Delete", "Delete", new { id = item.ProductId })</button>
+</td>
+
+        </tr>
+    }
+
+
+
+</table>
+
+<div>
+
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchBy = Request.QueryString["searchBy"], search = Request.QueryString["search"], sortBy = Request["sortBy"] }),
+        new PagedListRenderOptions() { Display = PagedListDisplayMode.IfNeeded, DisplayPageCountAndCurrentLocation = true })
+</div>
+
+
+@using (Html.BeginForm("ExportToExcel", "Inventory", FormMethod.Get))
+{
+    <td colspan="4">
+        <input type="submit" value="Export to Excel" id="button" class="btn-success" />
+    </td>
+}
